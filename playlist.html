@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head/>
+<body>
+	<div id="content"/>
+	<script type="text/javascript">
+
+		"use strict";
+		function Song(name,artist="Unknown",album="Unknown",release_date=new Date(), duration=0){
+			this["song name"]=name;
+			this.artist=artist;
+			this.album=album;
+			this["release date"]=release_date;
+			this.duration=duration;
+		}
+
+		let LaGozadera = new Song("La Gozadera");
+		let TikTok = new Song("Tik Tok", "Kesha");
+		let heaven = new Song("HEAVEN", "Troye Sivan", "Blue Neighborhood");
+
+		//alert(LaGozadera["song name"]);
+
+		let playlist = {};
+		playlist.addSong= function(song) {
+			this[song["song name"]]=song;
+		}
+
+		playlist.removeSong=function(song) {
+			delete this[song["song name"]];
+		}
+
+		playlist.addSong(LaGozadera);
+		playlist.addSong(TikTok);
+		playlist.addSong(heaven);
+		//alert(playlist["La Gozadera"].duration);
+		//alert(playlist["Tik Tok"].artist);
+
+		//playlist.removeSong(LaGozadera);
+		//alert(playlist["La Gozadera"]);
+
+		let content="<text>";
+		for (let song in playlist){
+			if("song name" in playlist[song]){
+				content+="<br>"+playlist[song]["song name"]+"</br>";
+			}
+		}
+
+		content+="</text>";
+		document.getElementById("content").innerHTML=content;
+
+	</script>
+	</body>
+</html>
