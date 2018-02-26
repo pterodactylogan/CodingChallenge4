@@ -1,6 +1,6 @@
 <!--
 	Coding Challenge 4
-	Authors: Logan Swanson :P, Jemimah Charles
+	Authors: Logan Swanson, Jemimah Charles
 -->
 <!DOCTYPE html>
 <html>
@@ -18,10 +18,11 @@
 	<script type="text/javascript">
 
 		"use strict";
-		function Song(name,album, duration=0){
-			this["song name"]=name; //included this format as well to practice using it
+		function Song(name,album="unknown", duration=0, link=false){
+			this["song name"]=name; //included this format to practice using it
 			this.album=album;
 			this.duration=duration;
+			this.link=link;
 		}
 
 		function Album(album_title, artist, release_date, cover_art){
@@ -33,22 +34,19 @@
 
 			//add a song to the album
 			//song can be either a string containing the song title, or a preexisting song object
-			this.addSong=function(song, duration=0){
+			this.addSong=function(song, duration=0, link=false){
 				if(typeof(song)=='string'){
 					//if argument is a song title, make a new song object and push it to the song list
-					let newSong = new Song(song, this, duration);
+					let newSong = new Song(song, this, duration, link);
 					this.songList.push(newSong);
-				}else if (typeof(song)=='object'){
-					//if song is an object, try assuming its a song object
-					try{
-						//update values to match album values
-						song.album=this;
-						//add song
-						this.songList.push(song);
-
-					}catch(e){
-						console.log("invalid argument for addSong(song)");
-					}
+				}else if (song instanceof Song){
+					//update values to match album values
+					song.album=this;
+					//add song
+					this.songList.push(song);
+				}else{
+					//invalid argument
+					throw "invalid argument for addSong function";
 				}
 			}
 		}
@@ -56,18 +54,30 @@
 		//create albums
 		let blueNeighborhood = new Album("Blue Neighborhood", "Troye Sivan", 2015, "https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg");
 		let vizualizate = new Album("Vizualizate", "Gente De Zona", 2016, "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Gente_de_Zona-La_Gozadera.jpg/220px-Gente_de_Zona-La_Gozadera.jpg")
-		blueNeighborhood.addSong("WILD");
+		blueNeighborhood.addSong("WILD", "3:48", "https://www.youtube.com/watch?v=_8G4oaOxyxk");
 		blueNeighborhood.addSong("HEAVEN");
 
 		let content="";
 		let albums=[blueNeighborhood, vizualizate];
 		for(let i in albums){
 			let album=albums[i];
-			content+='<table width="300", style="display: inline-block;">';
+			content+='<table width="300", style="display: inline-block;", valign="top">';
 			content+='<tr><td align="center"><img width="200", height="200", src="'+album.cover_art+'"/></td></tr>';
 			content+='<tr><td align="center">'+album.album_title+'</td></tr>';
 			content+='<tr><td align="center">'+album.artist+'</td></tr>';
 			content+='<tr><td align="center">'+album.release_date+'</td></tr>';
+			for(let j=0; j<album.songList.length; j++){
+				let song = album.songList[j];
+				let linkOpen="";
+				let linkClose="";
+				console.log(song.link);
+				if(song.link){
+					linkOpen='<a href="'+song.link+'", target="_blank">';
+					linkClose='</a>';
+				}
+				content+='<tr><td>'+linkOpen+song["song name"]+linkClose+'</td>';
+				content+='<td align="right">'+song.duration+'</td></tr>';
+			}
 			content+='</table>';
 		}
 
