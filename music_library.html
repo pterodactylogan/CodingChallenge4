@@ -1,6 +1,6 @@
 <!--
 	Coding Challenge 4
-	Author: Logan Swanson
+	Authors: Logan Swanson, Jemimah Charles
 -->
 <!DOCTYPE html>
 <html>
@@ -10,11 +10,9 @@
 	<script type="text/javascript">
 
 		"use strict";
-		function Song(name,artist="Unknown",album="Unknown",release_date=new Date(), duration=0){
+		function Song(name,album, duration=0){
 			this["song name"]=name; //included this format as well to practice using it
-			this.artist=artist;
 			this.album=album;
-			this["release date"]=release_date;
 			this.duration=duration;
 		}
 
@@ -30,15 +28,13 @@
 			this.addSong=function(song){
 				if(typeof(song)=='string'){
 					//if argument is a song title, make a new song object and push it to the song list
-					let newSong = new Song(song, this.artist,this.album_title,this.release_date);
+					let newSong = new Song(song, this);
 					this.songList.push(newSong);
 				}else if (typeof(song)=='object'){
 					//if song is an object, try assuming its a song object
 					try{
 						//update values to match album values
-						song.album=this.album_title;
-						song.artist=this.artist;
-						song["release date"]=this.release_date;
+						song.album=this;
 						//add song
 						this.songList.push(song);
 
