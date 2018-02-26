@@ -1,0 +1,77 @@
+<!--
+	Coding Challenge 4
+	Author: Logan Swanson
+-->
+<!DOCTYPE html>
+<html>
+<head/>
+<body>
+	<div id="albums"/>
+	<script type="text/javascript">
+
+		"use strict";
+		function Song(name,artist="Unknown",album="Unknown",release_date=new Date(), duration=0){
+			this["song name"]=name; //included this format as well to practice using it
+			this.artist=artist;
+			this.album=album;
+			this["release date"]=release_date;
+			this.duration=duration;
+		}
+
+		function Album(album_title, artist, release_date, cover_art){
+			this.album_title=album_title;
+			this.artist=artist;
+			this.release_date=release_date;
+			this.cover_art=cover_art;
+			this.songList=[];
+
+			//add a song to the album
+			//song can be either a string containing the song title, or a preexisting song object
+			this.addSong=function(song){
+				if(typeof(song)=='string'){
+					//if argument is a song title, make a new song object and push it to the song list
+					let newSong = new Song(song, this.artist,this.album_title,this.release_date);
+					this.songList.push(newSong);
+				}else if (typeof(song)=='object'){
+					//if song is an object, try assuming its a song object
+					try{
+						//update values to match album values
+						song.album=this.album_title;
+						song.artist=this.artist;
+						song["release date"]=this.release_date;
+						//add song
+						this.songList.push(song);
+
+					}catch(e){
+						console.log("invalid argument for addSong(song)");
+					}
+				}
+			}
+		}
+
+		let LaGozadera = new Song("La Gozadera");
+		let TikTok = new Song("Tik Tok", "Kesha");
+		let heaven = new Song("HEAVEN", "Troye Sivan", "Blue Neighborhood");
+
+		//create albums
+		let blueNeighborhood = new Album("Blue Neighborhood", "Troye Sivan", 2015, "https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg");
+		let vizualizate = new Album("Vizualizate", "Gente De Zona", 2016, "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Gente_de_Zona-La_Gozadera.jpg/220px-Gente_de_Zona-La_Gozadera.jpg")
+		blueNeighborhood.addSong("WILD");
+		blueNeighborhood.addSong(heaven);
+
+		let content="";
+		let albums=[blueNeighborhood, vizualizate];
+		for(let i in albums){
+			let album=albums[i];
+			content+="<img src=";
+			content+="'"+album.cover_art+"'";
+			content+="width='200' height='200'/>";
+			content+="<text> text </text>"
+		}
+
+		document.getElementById("albums").innerHTML=content;
+		console.log(content);
+
+	</script>
+	</body>
+</html>
