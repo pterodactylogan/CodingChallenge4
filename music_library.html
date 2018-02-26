@@ -7,6 +7,14 @@
 <head/>
 <body>
 	<div id="albums"/>
+	<!--<table width="200", style="display: inline-block;">
+		<tr><td><img width="200", height="200", src="https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg"/></td></tr>
+		<tr><td align="center">text2</td></tr>
+	</table>
+	<table style="display: inline-block;">
+		<tr><td>text3</td></tr>
+		<tr><td>text4</td></tr>
+	</table>-->
 	<script type="text/javascript">
 
 		"use strict";
@@ -25,10 +33,10 @@
 
 			//add a song to the album
 			//song can be either a string containing the song title, or a preexisting song object
-			this.addSong=function(song){
+			this.addSong=function(song, duration=0){
 				if(typeof(song)=='string'){
 					//if argument is a song title, make a new song object and push it to the song list
-					let newSong = new Song(song, this);
+					let newSong = new Song(song, this, duration);
 					this.songList.push(newSong);
 				}else if (typeof(song)=='object'){
 					//if song is an object, try assuming its a song object
@@ -45,24 +53,22 @@
 			}
 		}
 
-		let LaGozadera = new Song("La Gozadera");
-		let TikTok = new Song("Tik Tok", "Kesha");
-		let heaven = new Song("HEAVEN", "Troye Sivan", "Blue Neighborhood");
-
 		//create albums
 		let blueNeighborhood = new Album("Blue Neighborhood", "Troye Sivan", 2015, "https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg");
 		let vizualizate = new Album("Vizualizate", "Gente De Zona", 2016, "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Gente_de_Zona-La_Gozadera.jpg/220px-Gente_de_Zona-La_Gozadera.jpg")
 		blueNeighborhood.addSong("WILD");
-		blueNeighborhood.addSong(heaven);
+		blueNeighborhood.addSong("HEAVEN");
 
 		let content="";
 		let albums=[blueNeighborhood, vizualizate];
 		for(let i in albums){
 			let album=albums[i];
-			content+="<img src=";
-			content+="'"+album.cover_art+"'";
-			content+="width='200' height='200'/>";
-			content+="<text> text </text>"
+			content+='<table width="300", style="display: inline-block;">';
+			content+='<tr><td align="center"><img width="200", height="200", src="'+album.cover_art+'"/></td></tr>';
+			content+='<tr><td align="center">'+album.album_title+'</td></tr>';
+			content+='<tr><td align="center">'+album.artist+'</td></tr>';
+			content+='<tr><td align="center">'+album.release_date+'</td></tr>';
+			content+='</table>';
 		}
 
 		document.getElementById("albums").innerHTML=content;
