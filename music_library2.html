@@ -1,0 +1,123 @@
+<!--
+	Coding Challenge 4
+	Authors: Logan Swanson, Jemimah Charles.
+-->
+<!DOCTYPE html>
+<html>
+<head/>
+<body>
+	<div id="albums"/>
+	<!--<table width="200", style="display: inline-block;">
+		<tr><td><img width="200", height="200", src="https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg"/></td></tr>
+		<tr><td align="center">text2</td></tr>
+	</table>
+	<table style="display: inline-block;">
+		<tr><td>text3</td></tr>
+		<tr><td>text4</td></tr>
+	</table>-->
+	<script type="text/javascript">
+
+		"use strict";
+		function Song(name,album="unknown", duration=0, link=false){
+			this["song name"]=name; //included this format to practice using it
+			this.album=album;
+			this.duration=duration;
+			this.link=link;
+		}
+
+		function Album(album_title, artist, release_date, cover_art){
+			this.album_title=album_title;
+			this.artist=artist;
+			this.release_date=release_date;
+			this.cover_art=cover_art;
+			this.songList=[];
+
+			//add a song to the album
+			//song can be either a string containing the song title, or a preexisting song object
+			this.addSong=function(song, duration=0, link=false){
+				if(typeof(song)=='string'){
+					//if argument is a song title, make a new song object and push it to the song list
+					let newSong = new Song(song, this, duration, link);
+					this.songList.push(newSong);
+				}else if (song instanceof Song){
+					//update values to match album values
+					song.album=this;
+					//add song
+					this.songList.push(song);
+				}else{
+					//invalid argument
+					throw "invalid argument for addSong function";
+				}
+			}
+		}
+
+		//create albums
+		let blueNeighborhood = new Album("Blue Neighborhood", "Troye Sivan", 2015, "https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg");
+		let vizualizate = new Album("Vizualizate", "Gente De Zona", 2016, "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Gente_de_Zona-La_Gozadera.jpg/220px-Gente_de_Zona-La_Gozadera.jpg");
+		let spice = new Album("Spice", "The Spice Girls", 1996, "https://upload.wikimedia.org/wikipedia/en/0/01/Spice_Girls_-_Spice.png");
+
+		blueNeighborhood.addSong("WILD", "3:48", "https://www.youtube.com/watch?v=_8G4oaOxyxk");
+		blueNeighborhood.addSong("HEAVEN","4:21", "https://www.youtube.com/watch?v=8VNV__mV38s");
+		blueNeighborhood.addSong("FOOLS", "3:40","https://www.youtube.com/watch?v=uxg222-hWWc");
+		blueNeighborhood.addSong("EASE","3:33", "https://www.youtube.com/watch?v=aAt1m1lQK3w");
+		blueNeighborhood.addSong("TALK ME DOWN", "3:57", "https://www.youtube.com/watch?v=Lo3lxS-6joY");
+		blueNeighborhood.addSong("COOL","3:21","https://www.youtube.com/watch?v=HNotEiCn-hI");
+		blueNeighborhood.addSong("YOUTH", "3:05", "https://www.youtube.com/watch?v=2HMcDP2QIc0");
+		blueNeighborhood.addSong("LOST BOY", "3:43","https://www.youtube.com/watch?v=zdpZHBiphtA");
+		blueNeighborhood.addSong("SUBURBIA", "3:53", "https://www.youtube.com/watch?v=_AZKAcLHU88");
+
+		vizualizate.addSong("La Gozadera","3:23","https://www.youtube.com/watch?v=VMp55KH_3wo");
+		vizualizate.addSong("Algo Contigo","3:29", "https://www.youtube.com/watch?v=yvhx5gMmSPs");
+		vizualizate.addSong("Piensas (Dile la Verdad)","3:45", "https://www.youtube.com/watch?v=lV3YiXPdkXE");
+		vizualizate.addSong("Por Ti","3:29", "https://www.youtube.com/watch?v=cMg6T4hz2nE");
+		vizualizate.addSong("La Tentación","3:18", "https://www.youtube.com/watch?v=kodNCCkYaio");
+		vizualizate.addSong("Que Tú Quieres","3:40", "https://www.youtube.com/watch?v=uR-Mf-QaGew");
+		vizualizate.addSong("Más Whisky","3:30", "https://www.youtube.com/watch?v=Jihmjy6_GXU");
+		vizualizate.addSong("Tú Me Quemas","4:29","https://www.youtube.com/watch?v=K3H9UB1SJHo");
+		vizualizate.addSong("Yo Quiero (Si Tu Te Enamoras)","3:27", "https://www.youtube.com/watch?v=tdN0rdQGmLc");
+		vizualizate.addSong("Traidora","3:36","https://www.youtube.com/watch?v=_oMfwHYSRIk");
+		vizualizate.addSong("Tu y Yo","3:38", "https://www.youtube.com/watch?v=bfft4vOgFsE");
+		vizualizate.addSong("La gozadera [Salsa Version]","3:23", "https://www.youtube.com/watch?v=aQIaTOLbGoA");
+		vizualizate.addSong("Traidora [Sals Version][Bonus Track]","3:36", "https://www.youtube.com/watch?v=TMq5USWW4vU");
+
+		spice.addSong("Wannabe","2:53","https://www.youtube.com/watch?v=gJLIiF15wjQ");
+		spice.addSong("Say You'll Be There","3:55","https://www.youtube.com/watch?v=9ro0FW9Qt-4");
+		spice.addSong("2 Become 1","4:01","https://www.youtube.com/watch?v=FA5jsa1lR9c");
+		spice.addSong("Love Thing","3:38","https://www.youtube.com/watch?v=f4Fc7j-2Ykg");
+		spice.addSong("Last Time Lover","4:11","https://www.youtube.com/watch?v=Lgd7kGoVaf4");
+		spice.addSong("Mama","5:04","https://www.youtube.com/watch?v=VsNbhwSXDB8");
+		spice.addSong("Who Do You Think You Are","4:00","https://www.youtube.com/watch?v=-YriinrRGug");
+		spice.addSong("Something Kinda Funny","4:05","https://www.youtube.com/watch?v=2oyJtw7Ez0c");
+		spice.addSong("Naked","4:25","https://www.youtube.com/watch?v=el6J5hU_M6E");
+		spice.addSong("If U Can't Dance","3:48","https://www.youtube.com/watch?v=MvBrxz7NAQY");
+
+		let content="";
+		let albums=[blueNeighborhood, vizualizate, spice];
+		for(let i in albums){
+			let album=albums[i];
+			content+='<table width="300", style="display: inline-block;", valign="top">';
+			content+='<tr><td align="center"><img width="200", height="200", src="'+album.cover_art+'"/></td></tr>';
+			content+='<tr><td align="center">'+album.album_title+'</td></tr>';
+			content+='<tr><td align="center">'+album.artist+'</td></tr>';
+			content+='<tr><td align="center">'+album.release_date+'</td></tr>';
+			for(let j=0; j<album.songList.length; j++){
+				let song = album.songList[j];
+				let linkOpen="";
+				let linkClose="";
+				console.log(song.link);
+				if(song.link){
+					linkOpen='<a href="'+song.link+'", target="_blank">';
+					linkClose='</a>';
+				}
+				content+='<tr><td>'+linkOpen+song["song name"]+linkClose+'</td>';
+				content+='<td align="right">'+song.duration+'</td></tr>';
+			}
+			content+='</table>';
+		}
+
+		document.getElementById("albums").innerHTML=content;
+		console.log(content);
+
+	</script>
+	</body>
+</html>
