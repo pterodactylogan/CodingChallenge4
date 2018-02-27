@@ -1,20 +1,12 @@
 <!--
 	Coding Challenge 4
-	Authors: Logan Swanson, Jemimah Charles.
+	Authors: Logan Swanson, Jemimah Charles
 -->
 <!DOCTYPE html>
 <html>
 <head/>
 <body>
 	<div id="albums"/>
-	<!--<table width="200", style="display: inline-block;">
-		<tr><td><img width="200", height="200", src="https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg"/></td></tr>
-		<tr><td align="center">text2</td></tr>
-	</table>
-	<table style="display: inline-block;">
-		<tr><td>text3</td></tr>
-		<tr><td>text4</td></tr>
-	</table>-->
 	<script type="text/javascript">
 
 		"use strict";
@@ -25,11 +17,11 @@
 			this.link=link;
 		}
 
-		function Album(album_title, artist, release_date, cover_art){
-			this.album_title=album_title;
+		function Album(albumTitle, artist, releaseDate, coverArt){
+			this.albumTitle=albumTitle;
 			this.artist=artist;
-			this.release_date=release_date;
-			this.cover_art=cover_art;
+			this.releaseDate=releaseDate;
+			this.coverArt=coverArt;
 			this.songList=[];
 
 			//add a song to the album
@@ -92,21 +84,25 @@
 		spice.addSong("Naked","4:25","https://www.youtube.com/watch?v=el6J5hU_M6E");
 		spice.addSong("If U Can't Dance","3:48","https://www.youtube.com/watch?v=MvBrxz7NAQY");
 
-		let content="";
-		let albums=[blueNeighborhood, vizualizate, spice];
-		for(let i in albums){
-			let album=albums[i];
+		let content=""; //fill this string with html to be inserted at above <div>
+		let albums=[blueNeighborhood, vizualizate, spice]; //list of albums to display
+		for(let album of albums){
+			//each album gets its own table, in-line w other albums
 			content+='<table width="300", style="display: inline-block;", valign="top">';
-			content+='<tr><td align="center"><img width="200", height="200", src="'+album.cover_art+'"/></td></tr>';
-			content+='<tr><td align="center">'+album.album_title+'</td></tr>';
+			//insert art, title, artist, and release date
+			content+='<tr><td align="center"><img width="200", height="200", src="'+album.coverArt+'"/></td></tr>';
+			content+='<tr><td align="center">'+album.albumTitle+'</td></tr>';
 			content+='<tr><td align="center">'+album.artist+'</td></tr>';
-			content+='<tr><td align="center">'+album.release_date+'</td></tr>';
+			content+='<tr><td align="center">'+album.releaseDate+'</td></tr>';
+
+			//loop through this album's songs
 			for(let j=0; j<album.songList.length; j++){
 				let song = album.songList[j];
 				let linkOpen="";
 				let linkClose="";
 				console.log(song.link);
 				if(song.link){
+					//if this song has a hyperlink, insert the opening and closing <a> tags
 					linkOpen='<a href="'+song.link+'", target="_blank">';
 					linkClose='</a>';
 				}
@@ -116,8 +112,7 @@
 			content+='</table>';
 		}
 
-		document.getElementById("albums").innerHTML=content;
-		console.log(content);
+		document.getElementById("albums").innerHTML=content; //pass to html
 
 	</script>
 	</body>

@@ -54,11 +54,13 @@
 		//create albums
 		let blueNeighborhood = new Album("Blue Neighborhood", "Troye Sivan", 2015, "https://images-na.ssl-images-amazon.com/images/I/513VUhBNJzL._SY355_.jpg");
 		let vizualizate = new Album("Vizualizate", "Gente De Zona", 2016, "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Gente_de_Zona-La_Gozadera.jpg/220px-Gente_de_Zona-La_Gozadera.jpg")
+		let albums=[blueNeighborhood, vizualizate];
+		
+		//add songs
 		blueNeighborhood.addSong("WILD", "3:48", "https://www.youtube.com/watch?v=_8G4oaOxyxk");
 		blueNeighborhood.addSong("HEAVEN");
 
 		let content="";
-		let albums=[blueNeighborhood, vizualizate];
 		for(let i in albums){
 			let album=albums[i];
 			content+='<table width="300", style="display: inline-block;", valign="top">';
